@@ -37,12 +37,12 @@ void copy_inputs() {
     printf("Reading image from %s\n",ImageName);
 
     // //Reading Image from Bridge
-    // img_io_out_t type = IMGIO_OUTPUT_CHAR;
-    // if (ReadImageFromFile(ImageName, 224, 224, 3, Input_1, 224*224*3*sizeof(char), type, 0)) {
-    //     printf("Failed to load image %s\n", ImageName);
-    //     pmsis_exit(-1);
-    // }
-    // for (int i=0; i<224*224*3; i++) Input_1[i] -= 128;
+    img_io_out_t type = IMGIO_OUTPUT_CHAR;
+    if (ReadImageFromFile(ImageName, 224, 224, 3, Input_1, 224*224*3*sizeof(char), type, 0)) {
+        printf("Failed to load image %s\n", ImageName);
+        pmsis_exit(-1);
+    }
+    for (int i=0; i<224*224*3; i++) Input_1[i] -= 128;
     printf("Finished reading image %s\n", ImageName);
 }
 
@@ -147,6 +147,15 @@ int test_ResNet(void)
       printf("\n");
     }
 #endif
+
+    #ifdef CI
+    if(outclass != 1){
+        printf("Results Error...\n");
+        pmsis_exit(1);
+    }
+    else
+        printf("Correct Results!\n");
+    #endif
 
     printf("Ended\n");
     pmsis_exit(0);

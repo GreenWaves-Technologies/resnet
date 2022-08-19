@@ -91,7 +91,12 @@ QUANT_DATASET = "quant_data_ppm"
 $(QUANT_DATASET):
 	./download_quant_data.sh
 
-stats: $(QUANT_DATASET)
+$(STATS_DICT): $(QUANT_DATASET)
 	python model/collect_statistics.py $(TRAINED_MODEL) --stats_path $(STATS_DICT)
+
+stats: $(STATS_DICT)
+
+clean_stats:
+	rm -rf $(STATS_DICT)
 
 $(info GEN ... $(CNN_GEN))
