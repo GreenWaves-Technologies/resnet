@@ -87,7 +87,7 @@ TARGET_L3_SIZE = 8000000
 CLUSTER_STACK_SIZE=2048
 CLUSTER_SLAVE_STACK_SIZE=512
 
-QUANT_DATASET = "quant_data_ppm"
+QUANT_DATASET = $(CURDIR)/quant_data_ppm
 $(QUANT_DATASET):
 	./download_quant_data.sh
 
