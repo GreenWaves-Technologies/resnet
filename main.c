@@ -72,8 +72,18 @@ int test_ResNet(void)
     /* Configure And open cluster. */
     struct pi_device cluster_dev;
     struct pi_cluster_conf cl_conf;
-    cl_conf.id = 0;
+
+    pi_cluster_conf_init(&cl_conf);
     cl_conf.cc_stack_size = STACK_SIZE;
+
+    cl_conf.id = 0; /* Set cluster ID. */
+                    // Enable the special icache for the master core
+    cl_conf.icache_conf = PI_CLUSTER_MASTER_CORE_ICACHE_ENABLE |
+                    // Enable the prefetch for all the cores, it's a 9bits mask (from bit 2 to bit 10), each bit correspond to 1 core
+                    PI_CLUSTER_ICACHE_PREFETCH_ENABLE |
+                    // Enable the icache for all the cores
+                    PI_CLUSTER_ICACHE_ENABLE;
+
     pi_open_from_conf(&cluster_dev, (void *) &cl_conf);
     if (pi_cluster_open(&cluster_dev))
     {
