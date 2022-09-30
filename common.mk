@@ -91,8 +91,8 @@ QUANT_DATASET = $(CURDIR)/quant_data_ppm
 $(QUANT_DATASET):
 	./download_quant_data.sh
 
-$(STATS_DICT): $(QUANT_DATASET)
-	python model/collect_statistics.py $(TRAINED_MODEL) --stats_path $(STATS_DICT)
+$(STATS_DICT): | $(QUANT_DATASET)
+	python model/collect_statistics.py $(TRAINED_MODEL) --stats_path $(STATS_DICT) --n_images 5
 
 stats: $(STATS_DICT)
 
