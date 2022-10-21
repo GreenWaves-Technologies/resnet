@@ -14,6 +14,7 @@
 #include "ResNetKernels.h"
 #include "gaplib/fs_switch.h"
 #include "gaplib/ImgIO.h"
+#include "measurments_utils.h"
 
 #define __XSTR(__s) __STR(__s)
 #define __STR(__s) #__s 
@@ -27,6 +28,7 @@
 #define NUM_CLASSES     1000
 
 AT_HYPERFLASH_EXT_ADDR_TYPE ResNet_L3_Flash = 0;
+AT_HYPERFLASH_EXT_ADDR_TYPE ResNet_L3_PrivilegedFlash = 0;
 
 /* Outputs */
 L2_MEM unsigned char Output_1[NUM_CLASSES];
@@ -55,7 +57,9 @@ static void cluster()
     gap_cl_resethwtimer();
     #endif
 
+  GPIO_HIGH();
     ResNetCNN(Output_1);
+  GPIO_LOW();
     printf("Runner completed\n");
 
 }
@@ -69,6 +73,7 @@ int test_ResNet(void)
      */
 
 #ifndef __EMUL__
+    OPEN_GPIO_MEAS();
     /* Configure And open cluster. */
     struct pi_device cluster_dev;
     struct pi_cluster_conf cl_conf;
