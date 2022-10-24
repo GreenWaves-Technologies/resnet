@@ -64,6 +64,13 @@ else ifeq '$(RAM_TYPE)' 'DEFAULT'
     MODEL_L3_RAM=AT_MEM_L3_DEFAULTRAM
 endif
 
+USE_PRIVILEGED_FLASH?=0
+ifeq ($(USE_PRIVILEGED_FLASH), 1)
+MODEL_SEC_L3_FLASH=AT_MEM_L3_MRAMFLASH
+else
+MODEL_SEC_L3_FLASH=
+endif
+
 ifeq '$(TARGET_CHIP_FAMILY)' 'GAP9'
     FREQ_CL?=370
     FREQ_FC?=370
@@ -91,8 +98,8 @@ QUANT_DATASET = $(CURDIR)/quant_data_ppm
 $(QUANT_DATASET):
 	./download_quant_data.sh
 
-$(STATS_DICT): $(QUANT_DATASET)
-	python model/collect_statistics.py $(TRAINED_MODEL) --stats_path $(STATS_DICT)
+$(STATS_DICT): | $(QUANT_DATASET)
+	python model/collect_statistics.py $(TRAINED_MODEL) --stats_path $(STATS_DICT) --n_images 5
 
 stats: $(STATS_DICT)
 

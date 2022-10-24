@@ -17,7 +17,9 @@ def create_parser():
 	parser.add_argument('model_path', type=str,
 						help='path to model')
 	parser.add_argument('--quant_images', type=str, default="quant_data_ppm/*",
-						help='where to store statistics')
+						help='path to images to use for quantization')
+	parser.add_argument('--n_images', type=int, default=-1,
+						help='how many images')
 	parser.add_argument('--stats_path', type=str, default="model/resnet50_astats.pickle",
 						help='where to store statistics')
 	return parser
@@ -32,7 +34,7 @@ def main():
 	G.adjust_order()
 
 	stats_collector = ActivationRangesCollector()
-	for image in tqdm(glob(args.quant_images)):
+	for image in tqdm(glob(args.quant_images)[:args.n_images]):
 		input_tensor = np.array(Image.open(image).convert(mode="RGB").resize((224, 224))).transpose(2, 0, 1)
 		input_tensor = preprocess(input_tensor)
 		stats_collector.collect_stats(G, [input_tensor])

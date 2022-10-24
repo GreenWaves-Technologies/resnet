@@ -15,4 +15,5 @@
 #endif
 
 extern AT_HYPERFLASH_EXT_ADDR_TYPE ResNet_L3_Flash;
+extern AT_HYPERFLASH_EXT_ADDR_TYPE ResNet_L3_PrivilegedFlash;
 #endif
