@@ -1,4 +1,5 @@
 name: ResNet
+builder: cmake
 boards: []
 platforms: 
     - board
@@ -10,9 +11,9 @@ chips:
     - gap9
 variants:
     std:
-        name: standard
+        name: 18_ne16
         tags:
             - integration
             - release
         duration: standard
-        flags: ~
+        flags: PERF_CI=55000000
