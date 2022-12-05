@@ -40,6 +40,8 @@ set(MAIN                main.c)
 
 include($ENV{GAP_SDK_HOME}/utils/cmake/setup.cmake)
 
+set(APP_MSG_PREFIX "[${BoldRed}${TARGET_NAME}${ColourReset}]")
+
 ###############################################################################
 # Application's kconfig options
 ###############################################################################

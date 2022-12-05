@@ -188,10 +188,6 @@ int test_ResNet(void)
 int main(int argc, char *argv[])
 {
     printf("\n\n\t *** NNTOOL ResNet Example ***\n\n");
-    #ifdef __EMUL__
     test_ResNet();
-    #else
-    return pmsis_kickoff((void *) test_ResNet);
-    #endif
     return 0;
 }
