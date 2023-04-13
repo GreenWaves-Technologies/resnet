@@ -97,7 +97,8 @@ list(APPEND TARGET_CFLAGS   -gdwarf-2
                             -gstrict-dwarf
                             -O3
                             -mno-memcpy
-                            -fno-tree-loop-distribute-patterns)
+                            -fno-tree-loop-distribute-patterns
+                            -Wno-maybe-uninitialized)
 
 math(EXPR FREQ_CL_MHZ "${CONFIG_FREQUENCY_CLUSTER}/1000/1000")
 math(EXPR FREQ_FC_MHZ "${CONFIG_FREQUENCY_FC}/1000/1000")
