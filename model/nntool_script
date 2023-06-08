@@ -2,7 +2,8 @@ set graph_name ResNet
 set log_level INFO
 
 aquant --stats $(STATS_DICT) --use_ne16 --hwc
-qtune --step 3 use_ne16=false hwc=true
+#qtune --step 3 use_ne16=false hwc=true
+qtune --step 3 use_ne16_im2col_seq=True hwc=true
 adjust 
 fusions --scale8 
 

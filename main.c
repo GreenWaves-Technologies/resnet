@@ -44,7 +44,7 @@ void copy_inputs() {
         printf("Failed to load image %s\n", ImageName);
         pmsis_exit(-1);
     }
-    for (int i=0; i<224*224*3; i++) Input_1[i] -= 128;
+    //for (int i=0; i<224*224*3; i++) Input_1[i] -= 128;
     printf("Finished reading image %s\n", ImageName);
 }
 
@@ -108,6 +108,12 @@ int test_ResNet(void)
     }
 	printf("FC Frequency as %d Hz, CL Frequency = %d Hz, PERIIPH Frequency = %d Hz\n", 
             pi_freq_get(PI_FREQ_DOMAIN_FC), pi_freq_get(PI_FREQ_DOMAIN_CL), pi_freq_get(PI_FREQ_DOMAIN_PERIPH));
+
+	#ifdef VOLTAGE
+	pi_pmu_voltage_set(PI_PMU_VOLTAGE_DOMAIN_CHIP, VOLTAGE);
+	pi_pmu_voltage_set(PI_PMU_VOLTAGE_DOMAIN_CHIP, VOLTAGE);
+	#endif
+	printf("Voltage: %dmV\n", pi_pmu_voltage_get(PI_PMU_VOLTAGE_DOMAIN_CHIP));
 
 #endif
     
