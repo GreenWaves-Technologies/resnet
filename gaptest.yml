@@ -1,19 +1,19 @@
 name: ResNet
-builder: cmake
-boards: []
-platforms: 
-    - board
-    - gvsoc
-os: 
-    - freertos
-    - pulpos
-chips: 
-    - gap9
 variants:
-    std:
-        name: 18_ne16
-        tags:
-            - integration
-            - release
-        duration: standard
-        flags: PERF_CI=55000000
+    gvsoc:
+        chip: gap9
+        board: gap9evk
+        platform: gvsoc
+        os: freertos
+        builder: cmake
+        flags:
+            - PERF_CI=55000000
+
+    board:
+        chip: gap9
+        board: gap9evk
+        platform: board
+        os: freertos
+        builder: cmake
+        flags:
+            - PERF_CI=55000000
